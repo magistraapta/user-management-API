@@ -37,4 +37,26 @@ async function addUser(req, res) {
   }
 }
 
-module.exports = { getUser, addUser };
+async function deleteUser(req, res) {
+    try {
+        const {id} = req.params
+        const checkUser = await UserModel.findById(id);
+        if (!checkUser) {
+            res.status(400).json({
+                message: "user not found!"
+            })
+        }
+
+        const user = await UserModel.findByIdAndDelete(id);
+        res.status(200).json({
+            message: "data has been deleted",
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "internal server error"
+        })
+    }
+}
+
+module.exports = { getUser, addUser, deleteUser };

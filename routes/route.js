@@ -3,5 +3,6 @@ const route = require('express').Router();
 
 route.get('/', user.getUser);
 route.post('/', user.addUser);
+route.delete('/:id', user.deleteUser)
 
 module.exports = route;
